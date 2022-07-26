@@ -178,7 +178,7 @@ void GLWidget::paintGL()
     }
     DrawCones(xPos, yPos, radius);
     if (Play)
-        Planet.NextTimeInterval(.005, ConstrainInside);
+        Planet.NextTimeInterval(.005);
     NowTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
     while (NowTime - StartTime < 5)
     {
@@ -189,19 +189,6 @@ void GLWidget::paintGL()
     qDebug() << "Time take is " <<  NowTime - StartTime;
 
 }
-
-void MainWindow::on_ConstrainInside_stateChanged(int arg1)
-{
-    if (ConstrainInside)
-    {
-        ConstrainInside = false;
-    }else
-    {
-        ConstrainInside = true;
-    }
-}
-
-
 
 void GLWidget::resizeGL(int w, int h)
 {

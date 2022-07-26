@@ -16,7 +16,6 @@ public:
     ~MainWindow();
 
 private slots:
-    void on_ConstrainInside_stateChanged(int arg1);
 
     void on_Quit_Button_clicked();
 

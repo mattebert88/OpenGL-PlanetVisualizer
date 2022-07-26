@@ -13,7 +13,7 @@ public:
     vector<float> Mass;
     vector<bool> Fixed;
 
-    void NextTimeInterval(float Time, bool Constrain);
+    void NextTimeInterval(float Time);
     void AddPoint(float xPos, float yPos, float xVel, float yVel, float mass, bool fixed);
     void RemoveAllPlanets();
 

@@ -21,7 +21,7 @@ void Planets::AddPoint(float xPos, float yPos, float xVel, float yVel, float mas
 
 }
 
-void Planets::NextTimeInterval(float Time, bool Constrain)
+void Planets::NextTimeInterval(float Time)
 {
     float CurrentX = 0;
     float CurrentY = 0;
@@ -70,31 +70,6 @@ void Planets::NextTimeInterval(float Time, bool Constrain)
             yVelocityNew.push_back(ForceY/Mass[i] * Time + yVelocity[i]);
             xPositionsNew.push_back(xPositions[i] + .5 * (xVelocityNew[i] + xVelocity[i])* Time);
             yPositionsNew.push_back(yPositions[i] + .5 * (yVelocityNew[i] + yVelocity[i])* Time);
-        }
-
-
-        if (Constrain)
-        {
-            if (xPositionsNew[i] > 1)
-            {
-                xVelocityNew[i] = xVelocityNew[i] * -1;
-                xPositionsNew[i] = 1;
-            }
-            if (xPositionsNew[i] < -1)
-            {
-                xVelocityNew[i] = xVelocityNew[i] * -1;
-                xPositionsNew[i] = -1;
-            }
-            if (yPositionsNew[i] > 1)
-            {
-                yVelocityNew[i] = yVelocityNew[i] * -1;
-                yPositionsNew[i] = 1;
-            }
-            if (yPositionsNew[i] < -1)
-            {
-                yVelocityNew[i] = yVelocityNew[i] * -1;
-                yPositionsNew[i] = -1;
-            }
         }
 
     }
