@@ -12,6 +12,15 @@ Left Click- Adds a planet upon release.
 Right Click- Adds a planet that is fixed in space.
 
 Scroll Bar-
-  While Left or Right is Clicked- Makes the planet Bigger or smaller
-  Otherwise- Zooms in or out
+  While Left or Right is Clicked- Makes the planet Bigger or smaller.
+  Otherwise- Zooms in or out.
+  
+  
+Future Features
+
+-Lines that go from the center of each planet to all other planets to show their gravitational force.
+
+-Ability to change the speed at which it updates
+
+
 
