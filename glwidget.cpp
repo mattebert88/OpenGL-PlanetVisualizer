@@ -33,6 +33,8 @@ using std::chrono::system_clock;
 
 using std::chrono::duration_cast;
 
+
+
 QVector3D perp(const QVector3D &v) {
     qreal min = abs(v.x());
     QVector3D cardinalAxis(1, 0, 0);
@@ -48,8 +50,6 @@ QVector3D perp(const QVector3D &v) {
 
     return QVector3D::crossProduct(v, cardinalAxis);
 }
-
-
 
 // note: qreal is a typedef of either float or double
 void drawCone(const QVector3D &d, const QVector3D &a,
@@ -74,46 +74,8 @@ void drawCone(const QVector3D &d, const QVector3D &a,
         glVertex3f(pts[i].x(), pts[i].y(), pts[i].z());
     }
     glEnd();
-
-    // draw cone bottom
-    //glBegin(GL_TRIANGLE_FAN);
-    //glVertex3f(c.x(), c.y(), c.z());
-    //for (int i = n-1; i >= 0; --i) {
-    //    glVertex3f(pts[i].x(), pts[i].y(), pts[i].z());
-    //}
-    //glEnd();
 }
 
-
-void DrawPoints(vector<vector<float>> Points)
-{
-    glBegin(GL_POINTS);
-    glColor3f(0,0,0);
-    glPointSize(1000);
-    for (int i = 0; i < Points.size(); i++)
-    {
-        glVertex2f(Points[i][0],Points[i][1]);
-    }
-    glEnd();
-}
-
-
-
-void DrawCones(vector<vector<float>> Points, qreal rd, float r, float g, float b)
-{
-    QVector3D d(0, 0, -1); //direction of the cone
-    QVector3D a(0, 0, 0);//tip of the cone start
-    qreal h = .5;
-    qreal n = 10;
-    for (int i = 0; i < Points.size(); i++)
-    {
-        a.setX(Points[i][0]);
-        a.setY(Points[i][1]);
-        glColor3f(r, g, b);
-        drawCone(d, a, h, rd, n);
-
-    }
-}
 void DrawCones(vector<float> xPos, vector<float> yPos, vector<float> rd)
 {
     QVector3D d(0, 0, -1); //direction of the cone
@@ -136,9 +98,6 @@ void DrawCones(vector<float> xPos, vector<float> yPos, vector<float> rd)
 
 GLWidget::GLWidget(QWidget *parent) : QGLWidget(parent)
 {
-    //Planet.AddPoint(0,.5,-1,0, 5);
-    //Planet.AddPoint(0,0,0,0, 5);
-    //Planet.AddPoint(0,-.5,.5,0, 10);
     connect(&timer, SIGNAL(timeout()), this, SLOT(updateGL()));
     timer.start();
 }
@@ -159,9 +118,6 @@ void GLWidget::paintGL()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     glViewport(0, 0, width(), height());
     glLoadIdentity(); // reset transformation state
-    glRotatef(xRot / 16.0, 1.0, 0.0, 0.0); // apply rotation on x
-    glRotatef(yRot / 16.0, 0.0, 1.0, 0.0); // apply rotation on y
-    glRotatef(zRot / 16.0, 0.0, 0.0, 1.0); // apply rotation on z
     glEnable(GL_DEPTH_CLAMP);
     glEnable(GL_PROGRAM_POINT_SIZE);
 
@@ -186,8 +142,6 @@ void GLWidget::paintGL()
         sleep_for(.02ms);
         NowTime = duration_cast<milliseconds>(system_clock::now().time_since_epoch()).count();
     }
-    qDebug() << "Time take is " <<  NowTime - StartTime;
-
 }
 
 void GLWidget::resizeGL(int w, int h)
@@ -203,13 +157,6 @@ void GLWidget::mousePressEvent(QMouseEvent *event)
     TempPlanetY = (-float(lastPos.y()-height())/height() * 2 - 1) / ScaleFactor ;
 
     TempPlanetMass = 5;
-}
-
-
-
-void GLWidget::mouseMoveEvent(QMouseEvent *event)
-{
-
 }
 
 void GLWidget::wheelEvent(QWheelEvent *event)
@@ -255,32 +202,6 @@ void MainWindow::on_pushButton_clicked()
 }
 
 
-void GLWidget::setXRotation(int angle)
-{
-    normalizeAngle(&angle);
-    if (angle != xRot) {
-        xRot = angle;
-        emit xRotationChanged(angle);
-    }
-}
-
-void GLWidget::setYRotation(int angle)
-{
-    normalizeAngle(&angle);
-    if (angle != yRot) {
-        yRot = angle;
-        emit yRotationChanged(angle);
-    }
-}
-
-void GLWidget::setZRotation(int angle)
-{
-    normalizeAngle(&angle);
-    if (angle != zRot) {
-        zRot = angle;
-        emit zRotationChanged(angle);
-    }
-}
 
 void GLWidget::normalizeAngle(int *angle)
 {
